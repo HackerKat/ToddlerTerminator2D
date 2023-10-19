@@ -31,7 +31,7 @@ func _physics_process(delta):
 	if direction:
 		velocity.x = direction * SPEED
 		if velocity.y == 0:
-			anim.play("Run")
+			anim.play("Walk")
 	else:
 		velocity.x = move_toward(velocity.x, 0, SPEED)
 		if velocity.y == 0:
