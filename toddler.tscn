@@ -1,17 +1,40 @@
-[gd_scene load_steps=4 format=3 uid="uid://crcnfp05kc38a"]
+[gd_scene load_steps=6 format=3 uid="uid://crcnfp05kc38a"]
 
 [ext_resource type="Script" path="res://Toddler.gd" id="1_4bc4r"]
 [ext_resource type="Texture2D" uid="uid://caj1m1c7xb6m7" path="res://base/BabyBundles.png" id="2_ypk6n"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_tbgyv"]
+size = Vector2(22, 13)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ue1fe"]
+radius = 75.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6b7qt"]
+size = Vector2(29, 12)
 
 [node name="Toddler" type="CharacterBody2D"]
 script = ExtResource("1_4bc4r")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(1, 1.5)
 shape = SubResource("RectangleShape2D_tbgyv")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("2_ypk6n")
 region_enabled = true
 region_rect = Rect2(-1, 144.5, 34, 17)
+
+[node name="PlayerDetection" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerDetection"]
+shape = SubResource("CircleShape2D_ue1fe")
+
+[node name="PlayerCollison" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerCollison"]
+position = Vector2(-0.5, 1)
+shape = SubResource("RectangleShape2D_6b7qt")
+
+[connection signal="body_entered" from="PlayerDetection" to="." method="_on_player_detection_body_entered"]
+[connection signal="body_exited" from="PlayerDetection" to="." method="_on_player_detection_body_exited"]
+[connection signal="body_entered" from="PlayerCollison" to="." method="_on_player_collison_body_entered"]
